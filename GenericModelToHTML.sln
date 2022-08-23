@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericModelToHTML", "GenericModelToHTML\GenericModelToHTML.csproj", "{2D24C61E-503E-4476-8DFF-BCE139EAB7D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D24C61E-503E-4476-8DFF-BCE139EAB7D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D24C61E-503E-4476-8DFF-BCE139EAB7D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D24C61E-503E-4476-8DFF-BCE139EAB7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D24C61E-503E-4476-8DFF-BCE139EAB7D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {098A5C1A-9C8B-4CB6-ABAA-9695D927ACC8}
+	EndGlobalSection
+EndGlobal
