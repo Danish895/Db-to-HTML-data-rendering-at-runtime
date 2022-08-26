@@ -11,11 +11,11 @@ namespace GenericModelToHTML.Controllers
     public class StudentDetailController : ControllerBase
     {
         private IUserService _UserService;
-        private List<User1> users = new List<User1>()
+        private List<User> users = new List<User>()
         {
-            new User1(){Id = 1, Age = 23, FirstName = "Danish", LastName = "Khan", Salary = "20000"},
-            new User1(){Id = 2, Age = 23, LastName = "Kumar", FirstName = "Munna",  Salary = "20000"},
-            new User1(){Id = 1, FirstName = "Danish", Age = 23, LastName = "Khan", Salary = "25000"},
+            new User(){Id = 1, Age = 23, FirstName = "Danish", LastName = "Khan", Salary = "20000"},
+            new User(){Id = 2, Age = 23, LastName = "Kumar", FirstName = "Munna",  Salary = "20000"},
+            new User(){Id = 1, FirstName = "Danish", Age = 23, LastName = "Khan", Salary = "25000"},
         };
         public StudentDetailController(IUserService userService)
         {
@@ -30,25 +30,20 @@ namespace GenericModelToHTML.Controllers
             string htmlBody = String.Empty;
             string htmlFinal = String.Empty;
 
-            IEnumerable<string> students = new List<string>();
             List<string> studentnew=new List<string>();
             var fieldType = new List<User>() { new User() }.First().GetType().GetProperties();
             foreach (var field in fieldType)
             {
-                string hh = field.Name;
-                students.ToList().Add(hh);
-                studentnew.Add(hh);
+                studentnew.Add(field.Name);
             }
-            System.Console.WriteLine(students);
-            System.Console.WriteLine(studentnew);
+            var myhtmlHeadTemplate = await _UserService.GetBody();
 
-            string extendedReturnHtmlForHead = users.extendedHtmlForHeadMethod( studentnew);
+            string htmlHeadTemplate = myHtmlBodyMethod(myhtmlHeadTemplate);
+
+            string extendedReturnHtmlForHead = users.extendedHtmlForHeadMethod(studentnew, htmlHeadTemplate);
             htmlHead = extendedReturnHtmlForHead;
 
-            string extendedReturnHtmlForBody = users.extendedHtmlForBodyMethod(studentnew );
-            htmlBody = extendedReturnHtmlForBody;
-
-            htmlFinal += WelcomeHTML(htmlHead, htmlBody);
+            htmlFinal = WelcomeHTML(htmlHead);
             return new ContentResult
             {
                 Content = htmlFinal,
@@ -56,13 +51,22 @@ namespace GenericModelToHTML.Controllers
                 StatusCode = 200
             };
         }
-        private string WelcomeHTML(string htmlHead, string htmlBody)
+
+        private string myHtmlBodyMethod(Document myhtmlHeadTemplate)
+        {
+            string htmlBody = myhtmlHeadTemplate.Content;
+            return htmlBody;
+        }
+
+
+        private string WelcomeHTML(string htmlHead)
         {
             var html = System.IO.File.ReadAllText(@"./HtmlRender/Page.html");
-            html = html.Replace("{{HtmlHead}}", htmlHead);
-            html = html.Replace("{{HtmlData}}", htmlBody);
+            html = html.Replace("{{HtmlBody}}", htmlHead);
+           // html = html.Replace("{{HtmlData}}", htmlBody);
             return html;
         }
+
     }
 }
 

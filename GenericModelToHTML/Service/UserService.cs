@@ -16,5 +16,11 @@ namespace GenericModelToHTML.Service
             var detail = await _UserRepository.AllStudent();
             return detail;
         }
+
+        public async Task<Document> GetBody()
+        {
+            var detail = await _UserRepository.GetBodyData();
+            return detail;
+        }
     }
 }

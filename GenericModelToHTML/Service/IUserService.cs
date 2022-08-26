@@ -5,5 +5,6 @@ namespace GenericModelToHTML.Service
     public interface IUserService
     {
         Task<IEnumerable<Student>> getAllStudents();
+        Task<Document> GetBody();
     }
 }

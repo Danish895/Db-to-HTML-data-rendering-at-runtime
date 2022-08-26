@@ -5,80 +5,36 @@ namespace GenericModelToHTML.Extensions
 {
     public static class ExtensionMethods
     {
-        public static string extendedHtmlForHeadMethod<T>(this IEnumerable<T> studentModelObj, IEnumerable<string> students)
+        public static string extendedHtmlForHeadMethod<T>(this IEnumerable<T> studentModelObj, IEnumerable<string> students, string htmlHeadTemplate)
         {
-            var htmlHeadTemplate = System.IO.File.ReadAllText(@"./HtmlRender/head.html");
+           //string htmlHeadTemplate2 = System.IO.File.ReadAllText(@"htmlHeadTemplate");
+            string htmlBodyTemplate = System.IO.File.ReadAllText(@"./HtmlRender/body.html");
 
-            //string htmlReturn = String.Empty;
-            ////foreach (var item in studentModelObj)
-            ////var item = studentModelObj;
-            ////{
-            //var fieldType = studentModelObj.First().GetType().GetProperties();
-            //foreach (var field in fieldType)
-            //{
-            //    //if (field.GetValue(studentModelObj.First()) == null)
-            //    //{
-            //    //    continue;
-            //    //}
-            //    //Console.WriteLine(field.Name);
-            //    //Console.WriteLine(field.GetValue(studentModelObj.First()).ToString());
-            //    //Console.WriteLine("---------------");
+            string startingHtml = String.Empty;
+            string htmlReturnHead = String.Empty;   
 
-            //    //string valueCheck = field.Name;
-            //    string html1 = htmlHeadTemplate.Replace("{{HtmlHeadData}}", field.Name);
-            //    htmlReturn += html1;
-            //}
-            //return htmlReturn;
-            //}
-            string html1 = studentModelObj.First().GetType().Name;
-            //foreach (var item in studentModelObj)
-            //var item = studentModelObj;
-            //Console.WriteLine(htmlReturn);
-
-            string htmlReturn = String.Empty;
-            //var fieldType = students.ToString();
             foreach (var field in students)
             {
-                html1 += htmlHeadTemplate.Replace("{{HtmlHeadData}}", field);
-                htmlReturn += html1;
+               string html1 = htmlHeadTemplate.Replace("{{HtmlHeadData}}", field);
+            
+                htmlReturnHead += html1;
             }
-            return html1;
-        }
-
-        public static string extendedHtmlForBodyMethod<T>(this IEnumerable<T> studentModelObj, IEnumerable<string> students)
-        {
-            var htmlBodyTemplate = System.IO.File.ReadAllText(@"./HtmlRender/body.html");
-
-            //var fieldType = studentModelObj.GetType().GetProperties();
-            string htmlReturn = String.Empty;
-            string htmlBody = String.Empty;
-            string html1 = String.Empty;
+            startingHtml = htmlReturnHead;
+            string htmlReturn = "<tr>";
             foreach (var item in studentModelObj)
             {
                 var fieldType = item.GetType();
                 foreach (var fieldOf in students)
                 {
-                    //string myField = field.Name;
-                    //string html1 = String.Empty;
                     var field = fieldType.GetProperty(fieldOf);
-                    html1 = htmlBodyTemplate.Replace("{{HtmlBodyData}}", field.GetValue(item).ToString());
+                    string html1 = htmlBodyTemplate.Replace("{{HtmlBodyData}}", field.GetValue(item).ToString());
                     htmlReturn += html1;
                 }
-                string extendedReturnHtmlForBodyData = extendedHtmlForRowBreakMethod(htmlReturn);
-                htmlBody += extendedReturnHtmlForBodyData;
-                htmlReturn = String.Empty;
+                htmlReturn += "</tr>";
+                startingHtml += htmlReturn;
+                   htmlReturn = String.Empty;
             }
-            return htmlBody;
-        }
-
-        public static string extendedHtmlForRowBreakMethod( string htmlBodyData)
-        {
-            string htmlReturn = String.Empty;
-
-            var htmlBodyTemplate = System.IO.File.ReadAllText(@"./HtmlRender/RowBreak.html");
-            string html1 = htmlBodyTemplate.Replace("{{RowBreaker}}", htmlBodyData);
-            htmlReturn += html1;
-            return htmlReturn;
+            return startingHtml;
         }
     }
 }   

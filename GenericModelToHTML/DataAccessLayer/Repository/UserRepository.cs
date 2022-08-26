@@ -17,5 +17,21 @@ namespace GenericModelToHTML.DataAccessLayer.Repository
         {
             return await _context.Students.ToListAsync();
         }
+
+        public async Task<Document> GetBodyData()
+        {
+            Document Bodydata = await _context.Documents.Where(t => t.Code == "HeadCode").FirstOrDefaultAsync();
+            return Bodydata;
+        }
+
+        public Task<string> GetHeadData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetPageData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
