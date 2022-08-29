@@ -7,7 +7,7 @@ namespace GenericModelToHTML.Extensions
     {
         public static string extendedHtmlForHeadMethod<T>(this IEnumerable<T> studentModelObj, IEnumerable<string> students, string htmlHeadTemplate)
         {
-           //string htmlHeadTemplate2 = System.IO.File.ReadAllText(@"htmlHeadTemplate");
+          // string htmlHeadTemplate2 = System.IO.File.ReadAllText(@"htmlHeadTemplate");
             string htmlBodyTemplate = System.IO.File.ReadAllText(@"./HtmlRender/body.html");
 
             string startingHtml = String.Empty;
