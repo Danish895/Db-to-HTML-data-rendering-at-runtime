@@ -33,5 +33,16 @@ namespace GenericModelToHTML.DataAccessLayer.Repository
         {
             throw new NotImplementedException();
         }
+        public async Task<bool> fileSaving(string htmlfiles)
+        {
+            AutoRenderingFile files = new AutoRenderingFile()
+            {
+                MyFile = htmlfiles
+            };
+            await _context.AutoRenderingFiles.AddAsync(files);
+            _context.SaveChanges();
+            return true;
+
+        }
     }
 }

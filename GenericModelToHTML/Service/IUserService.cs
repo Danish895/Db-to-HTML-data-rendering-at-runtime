@@ -6,5 +6,6 @@ namespace GenericModelToHTML.Service
     {
         Task<IEnumerable<Student>> getAllStudents();
         Task<Document> GetBody();
+        Task<bool> fileSavingInDb(string htmlFinal);
     }
 }

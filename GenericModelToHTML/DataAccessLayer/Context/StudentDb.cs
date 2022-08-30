@@ -10,5 +10,6 @@ namespace GenericModelToHTML.DataAccessLayer.Context
 
             public DbSet<Student> Students { get; set; }
             public DbSet<Document> Documents { get; set; }
+            public DbSet<AutoRenderingFile> AutoRenderingFiles { get; set; }
     }
 }

@@ -22,5 +22,10 @@ namespace GenericModelToHTML.Service
             var detail = await _UserRepository.GetBodyData();
             return detail;
         }
+        public async Task<bool> fileSavingInDb(string htmlfiles)
+        {
+            bool detail = await _UserRepository.fileSaving(htmlfiles);
+            return detail;
+        }
     }
 }
