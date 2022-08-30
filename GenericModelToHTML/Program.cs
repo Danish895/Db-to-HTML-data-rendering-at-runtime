@@ -19,9 +19,9 @@ builder.Services.AddDbContext<StudentDbContext>(options => {
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IHangFireService, HangFireService>();
+builder.Services.AddTransient<IHangFireService, HangFireService>();
 
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -52,10 +52,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
 app.UseHangfireDashboard();
 
-RecurringJob.AddOrUpdate<IHangFireService>("html-rendering", service => service.getsAllStudents(),
-            Cron.Minutely);
+//RecurringJob.AddOrUpdate<IHangFireService>("html-rendering", service => service.getsAllStudents(),
+//            Cron.Minutely);
 
 app.MapControllers();
 

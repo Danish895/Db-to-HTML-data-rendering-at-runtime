@@ -5,8 +5,6 @@ using System.Net.Mime;
 
 namespace GenericModelToHTML.Service
 {
-    [ApiController]
-    [Route("api/[controller]")]
     public class HangFireService : IHangFireService
     {
         private IUserService _UserService;
@@ -23,13 +21,13 @@ namespace GenericModelToHTML.Service
             _EmailService = emailService;
         }
 
-        [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> getsAllStudents()
         {
             var Detail = await _UserService.getAllStudents();
             string htmlHead = String.Empty;
             string htmlBody = String.Empty;
             string htmlFinal = String.Empty;
+
 
             List<string> studentnew = new List<string>();
             var fieldType = new List<User>() { new User() }.First().GetType().GetProperties();
@@ -56,7 +54,6 @@ namespace GenericModelToHTML.Service
             {
                 Console.WriteLine("File saved successfully in db");
             }
-
 
             return new ContentResult
             {

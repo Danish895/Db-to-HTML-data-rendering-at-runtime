@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using Hangfire;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
@@ -8,11 +9,13 @@ namespace GenericModelToHTML.Service
     public class EmailService : IEmailService
     {
             private readonly IConfiguration _config;
+            private IBackgroundJobClient _backgroundJobClient;
 
 
-            public EmailService(IConfiguration config)
+            public EmailService(IConfiguration config, IBackgroundJobClient backgroundJobClient)
             {
                 _config = config;
+                _backgroundJobClient = backgroundJobClient; 
 
             }
 
