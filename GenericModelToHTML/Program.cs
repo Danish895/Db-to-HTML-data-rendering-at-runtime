@@ -6,7 +6,7 @@ using Hangfire.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+jk
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -55,8 +55,8 @@ app.UseAuthorization();
 
 app.UseHangfireDashboard();
 
-//RecurringJob.AddOrUpdate<IHangFireService>("html-rendering", service => service.getsAllStudents(),
-//            Cron.Minutely);
+RecurringJob.AddOrUpdate<IHangFireService>("html-rendering", service => service.getsAllStudents(),
+            Cron.Hourly);
 
 app.MapControllers();
 
