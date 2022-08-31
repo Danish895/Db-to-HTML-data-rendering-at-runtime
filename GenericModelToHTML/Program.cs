@@ -6,7 +6,7 @@ using Hangfire.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-jk
+
 // Add services to the container.
 
 builder.Services.AddControllers();

@@ -3,6 +3,8 @@ using GenericModelToHTML.Model;
 using GenericModelToHTML.Service;
 using Hangfire;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using System.Data.SqlClient;
 using System.Net.Mime;
 
 namespace GenericModelToHTML.Controllers
@@ -27,19 +29,47 @@ namespace GenericModelToHTML.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> getStudents()
+        public IEnumerable<Document> ModelFromDB()
 
         {
-            string yui = string.Empty;
+            string connString = "Server=localhost, 1433;Database=StudentDatabase;User Id=sa;Password=Youtube2021;";
+
+            List<Document> Document = new List<Document>();
+
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.Open(); Console.WriteLine("connection open");
+                string query = @"SELECT * FROM dbo.Documents";
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            var map = new Document();
+                            map.Id = reader.GetInt32("Id");
+                            map.Content = reader.GetString("Content");
+                            map.ContentType = reader.GetString("ContentType");
+                            map.Code = reader.GetString("Code");
+
+                            Document.Add(map);
+                        }
+                    }
+                }
+            }
+            return Document;
+
             //backgroundJobClient.Schedule<_HangFireService>(services =>
             //services.getsAllStudents(), Cron.Minutely)
             //RecurringJob.AddOrUpdate<IHangFireService>("fetching-data", services =>
             //services.getsAllStudents(), Cron.Hourly(5));
             //RecurringJob.AddOrUpdate<IHangFireService>("html-rendering", service => service.getsAllStudents(),
             //            Cron.Minutely);
-            return Ok();
-        }
 
+        }
     }
 }
 
